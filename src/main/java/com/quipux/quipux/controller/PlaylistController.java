@@ -7,6 +7,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/lists")
@@ -36,5 +37,15 @@ public class PlaylistController {
         return service.getPlaylistByName(nombre)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());  // ❌ sin cuerpo
+    }
+
+    @DeleteMapping("/{nombre}")
+    public ResponseEntity<?> deleteByName(@PathVariable String nombre) {
+        try {
+            service.deletePlaylistByName(nombre);
+            return ResponseEntity.noContent().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lista no encontrada");
+        }
     }
 }

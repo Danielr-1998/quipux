@@ -9,4 +9,6 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     boolean existsByNombre(String nombre);
     Optional<Playlist> findByNombre(String nombre);
 
+    void deleteByNombre(String name);
+
 }

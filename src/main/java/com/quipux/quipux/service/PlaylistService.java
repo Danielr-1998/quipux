@@ -8,4 +8,6 @@ public interface PlaylistService {
     Playlist createPlaylist(Playlist playlist);
     List<Playlist> getAllPlaylists();
     Optional<Playlist> getPlaylistByName(String nombre);
+
+    void deletePlaylistByName(String nombre);
 }
