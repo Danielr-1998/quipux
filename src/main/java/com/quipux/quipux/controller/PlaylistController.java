@@ -1,4 +1,3 @@
-
 package com.quipux.quipux.controller;
 
 import com.quipux.quipux.model.Playlist;
@@ -25,5 +24,17 @@ public class PlaylistController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Nombre inválido");
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(service.getAllPlaylists());
+    }
+
+    @GetMapping("/{nombre}")
+    public ResponseEntity<?> getByName(@PathVariable String nombre) {
+        return service.getPlaylistByName(nombre)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());  // ❌ sin cuerpo
     }
 }

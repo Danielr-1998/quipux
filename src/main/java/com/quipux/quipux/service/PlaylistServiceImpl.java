@@ -5,6 +5,9 @@ import com.quipux.quipux.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PlaylistServiceImpl implements PlaylistService {
 
@@ -17,5 +20,14 @@ public class PlaylistServiceImpl implements PlaylistService {
             throw new IllegalArgumentException("Nombre inválido");
         }
         return repository.save(playlist);
+    }
+    @Override
+    public List<Playlist> getAllPlaylists() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<Playlist> getPlaylistByName(String nombre) {
+        return repository.findByNombre(nombre);
     }
 }
